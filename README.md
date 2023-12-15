@@ -1,9 +1,6 @@
-# Symfony Docker
+# Stackoverflow Api
 
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
-
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+Stackoverflow restful api where to get the data from the stackoverflow forums
 
 ## Getting Started
 
@@ -11,38 +8,41 @@ with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) 
 2. Run `docker compose build --no-cache` to build fresh images
 3. Run `docker compose up --pull always -d --wait` to start the project
 4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+5. Create the Google cloud credentials file in the project root
+6. Create .env file in the project root
+7. Run `docker compose down --remove-orphans` to stop the Docker containers.
 
-## Features
+## HOW TO CREATE GOOGLE CLOUD CREDENTIALS CREDENTIALS 
 
-* Production, development and CI ready
-* Just 1 service by default
-* Blazing-fast performance thanks to [the worker mode of FrankenPHP](https://github.com/dunglas/frankenphp/blob/main/docs/worker.md) (automatically enabled in prod mode)
-* [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
-* Automatic HTTPS (in dev and prod)
-* HTTP/3 and [Early Hints](https://symfony.com/blog/new-in-symfony-6-3-early-hints) support
-* Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
-* [Vulcain](https://vulcain.rocks) support
-* Native [XDebug](docs/xdebug.md) integration
-* Super-readable configuration
+1. Access the Google Cloud Console:
+Navigate to the Google Cloud Console.
 
-**Enjoy!**
+2. Create a Project:
+If you don't have a project yet, create one from the top panel of the console. You can click on "Select project" and then "Create project."
 
-## Docs
+3. Enable Necessary APIs:
+Make sure to enable the APIs you need for your project. For services like BigQuery, you'll need to enable the BigQuery API. You can do this from the "APIs & Services" section in the console.
 
-1. [Build options](docs/build.md)
-2. [Using Symfony Docker with an existing project](docs/existing-project.md)
-3. [Support for extra services](docs/extra-services.md)
-4. [Deploying in production](docs/production.md)
-5. [Debugging with Xdebug](docs/xdebug.md)
-6. [TLS Certificates](docs/tls.md)
-7. [Using a Makefile](docs/makefile.md)
-8. [Troubleshooting](docs/troubleshooting.md)
+4. Create a Service Account:
+In the Google Cloud Console, go to the "IAM & Admin" section and select "Service accounts." Then, click on "Create Service Account." Provide a name and an ID for the service account.
 
-## License
+5. Assign Permissions:
+After creating the service account, assign the necessary roles and permissions. You can assign predefined roles from Google Cloud (e.g., "Editor") or service-specific roles like "BigQuery Admin."
 
-Symfony Docker is available under the MIT License.
+6. Create a Service Account Key:
+After assigning permissions, select the service account from the list and click on "Create Key." Choose the key type you need (usually, a JSON key is used) and download it.
 
-## Credits
+7. Save the Credentials:
+Save the JSON file you downloaded with the service account credentials in a secure location. This file contains sensitive information and should be handled with care.
 
-Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+## HOW TO CREATE .ENV FILE
+
+1. Create .env file in the project root
+2. Create variable constant `PROJECT_ID` with your Google cloud project id
+
+## Popular tags
+
+shows the first 10 most popular tags of the year.
+
+- **Endpoint: https://localhost/stackoverflow/tags/popular?year=2021**: 
+- **Response**: {'Popular tags', ['tag' => 'Php', 'questions' => '1234567']}.

@@ -17,6 +17,7 @@ services:
       # The two next lines can be removed after initial installation
       SYMFONY_VERSION: ${SYMFONY_VERSION:-}
       STABILITY: ${STABILITY:-stable}
+      GOOGLE_APPLICATION_CREDENTIALS: /app/credentials.json
     volumes:
       - caddy_data:/data
       - caddy_config:/config
